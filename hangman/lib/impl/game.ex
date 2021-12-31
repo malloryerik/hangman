@@ -3,7 +3,7 @@ defmodule Hangman.Impl.Game do
 
   @type t :: %__MODULE__{
           turns_left: integer(),
-          game_state: Type.stateinteger(),
+          game_state: Type.state(),
           letters: list(String.t()),
           used: MapSet.t(String.t())
         }
@@ -16,6 +16,7 @@ defmodule Hangman.Impl.Game do
   )
 
   ###################################################
+
   @spec new_game() :: t
   def new_game do
     new_game(Dictionary.random_word())
@@ -30,6 +31,17 @@ defmodule Hangman.Impl.Game do
 
   ###################################################
 
-  def make_move(_game, _guess) do
+  @spec make_move(game, String.t()) :: {game, Type.tally()}
+  def make_move(game = %{game_state: :won}, _guess) do
+    {game, tally(game)}
+  end
+
+  defp tally(game) do
+    %{
+      turns_left: game.turns_left,
+      game_state: game.game_state,
+      letters: [],
+      used: game.used |> MapSet.to_list() |> Enum.sort()
+    }
   end
 end
