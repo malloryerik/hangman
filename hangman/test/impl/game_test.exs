@@ -24,4 +24,10 @@ defmodule Hangman.Impl.GameTest do
     assert game.game_state == :initializing
     assert game.letters == String.codepoints("mystery")
   end
+
+  test "game won state, and state doesn't change" do
+    game = Game.new_game("mystery")
+    game = Map.put(game, :game_state, :won)
+    {new_game, tally} = Game.make_move(game, "x")
+  end
 end
