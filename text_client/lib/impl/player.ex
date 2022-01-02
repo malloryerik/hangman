@@ -24,13 +24,30 @@ defmodule TextClient.Impl.Player do
     IO.puts("You lost... better luck next time.")
   end
 
-  def interact(_state = {_game, tally}) do
-    # feedback -- good guess or not etc
+  def interact(_state = {game, tally}) do
     IO.puts(feedback_for(tally))
-    # display the current word
-    # get the next guess
-    # make move (recurse)
-    # interact()
+    IO.puts(current_word(tally))
+    guess = get_guess()
+    {updated_game, updated_tally} = Hangman.make_move(game, guess)
+
+    interact({updated_game, updated_tally})
+  end
+
+  defp current_word(tally) do
+    [
+      "Word so far: ",
+      tally.letters |> Enum.join(" "),
+      "    Turns left: ",
+      to_string(tally.turns_left),
+      "    Used so far: ",
+      tally.used |> Enum.join(", ")
+    ]
+  end
+
+  defp get_guess() do
+    IO.gets("Next guess, please: ")
+    |> String.trim()
+    |> String.downcase()
   end
 
   #  @type state :: :initializing | :won | :lost | :good_guess | :bad_guess | :already_used
