@@ -68,7 +68,7 @@ defmodule Hangman.Impl.Game do
     |> return_with_tally()
   end
 
-  defp tally(game) do
+  def tally(game) do
     %{
       turns_left: game.turns_left,
       game_state: game.game_state,

@@ -1,21 +1,21 @@
 defmodule Hangman.Type do
   @moduledoc """
-  Types for state_options and tally.
-    @type state_options :: :initializing | :won | :lost | :good_guess | :bad_guess | :already_used
+  Types for state and tally.
+    @type state :: :initializing | :won | :lost | :good_guess | :bad_guess | :already_used
 
   @type tally :: %{
           turns_left: integer(),
-          game_state: state_options,
+          game_state: state,
           letters: list(String.t()),
           used: list(String.t())
         }
   """
 
-  @type state_options :: :initializing | :won | :lost | :good_guess | :bad_guess | :already_used
+  @type state :: :initializing | :won | :lost | :good_guess | :bad_guess | :already_used
 
   @type tally :: %{
           turns_left: integer(),
-          game_state: state_options,
+          game_state: state,
           letters: list(String.t()),
           used: list(String.t())
         }
