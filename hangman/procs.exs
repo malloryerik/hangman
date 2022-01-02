@@ -1,22 +1,30 @@
 defmodule Procs do
-  def hello() do
+  def hello(count) do
     receive do
-      msg ->
-        IO.puts("Hello, #{inspect(msg)}")
-    end
+      {:quit} ->
+        IO.puts("Later, tater")
 
-    hello()
+      {:add, n} ->
+        hello(count + n)
+
+      {:subtract, n} ->
+        hello(count - n)
+
+      msg ->
+        IO.puts("#{count}: Hello, #{inspect(msg)}")
+        hello(count)
+    end
   end
 end
 
-# Loop it!
-
-# iex(27)> pid = spawn Procs, :hello, []
-# #PID<0.17267.5>
-# iex(28)> send pid, 123
-# Hello, 123
-# 123
-# iex(29)> send pid, "whattup"
-# "whattup"
-# iex(30)> send pid, "oomphalaboomboom"
-# "oomphalaboomboom"
+# iex(37)> pid = spawn(Procs, :hello, [ 0 ])
+# #PID<0.28617.8>
+# iex(38)> send(pid, "Cute Stuff.")
+# 0: Hello, "Cute Stuff."
+# "Cute Stuff."
+# iex(39)> send(pid, "Baybeee.")
+# 1: Hello, "Baybeee."
+# "Baybeee."
+# iex(40)> send(pid, "Sweet World.")
+# 2: Hello, "Sweet World."
+# "Sweet World."
