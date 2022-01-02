@@ -16,12 +16,12 @@ defmodule TextClient.Impl.Player do
   end
 
   @spec interact(state) :: :ok
-  def interact({_game, _tally = %{game_state: :won}}) do
-    IO.puts("You win! Congratulations!")
+  def interact({game, _tally = %{game_state: :won}}) do
+    IO.puts("You win! Congratulations! The word was '#{game.letters}'.")
   end
 
-  def interact({_game, _tally = %{game_state: :lost}}) do
-    IO.puts("You lost... better luck next time.")
+  def interact({game, _tally = %{game_state: :lost}}) do
+    IO.puts("Sorry, you lost. The word was '#{game.letters}'.")
   end
 
   def interact(_state = {game, tally}) do
