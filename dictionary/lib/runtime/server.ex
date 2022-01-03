@@ -10,10 +10,10 @@ defmodule Dictionary.Runtime.Server do
   # "code"
 
   def start_link() do
-    Agent.start_link(&WordList.word_list/0)
+    Agent.start_link(&WordList.word_list/0, name: :myproc)
   end
 
-  def random_word(pid) do
-    Agent.get(pid, &WordList.random_word/1)
+  def random_word() do
+    Agent.get(:myproc, &WordList.random_word/1)
   end
 end
