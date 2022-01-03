@@ -3,6 +3,8 @@ defmodule Hangman.Runtime.Server do
 
   alias Hangman.Impl.Game
 
+  @type t :: pid
+
   ### Client process code
   def start_link do
     GenServer.start_link(__MODULE__, nil)
