@@ -19,7 +19,7 @@ defmodule Hangman.Impl.Game do
 
   @spec new_game() :: t
   def new_game do
-    new_game(Dictionary.random_word(Dictionary.start()))
+    new_game(Dictionary.random_word())
   end
 
   @spec new_game(String.t()) :: t
