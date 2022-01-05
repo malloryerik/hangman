@@ -25,7 +25,6 @@ defmodule TextClient.Impl.Player do
   end
 
   def interact(_state = {game, tally}) do
-    IO.inspect(game)
     IO.puts(feedback_for(tally))
     IO.puts(current_word(tally))
 
