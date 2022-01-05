@@ -8,6 +8,7 @@ defmodule Hangman.Runtime.Application do
       {DynamicSupervisor, strategy: :one_for_one, name: @super_name}
     ]
 
+    # The strategy here is for the supervisor that supervises the supervisor.
     Supervisor.start_link(supervisor_spec, strategy: :one_for_one)
   end
 

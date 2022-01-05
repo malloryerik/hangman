@@ -16,20 +16,22 @@ defmodule TextClient.Impl.Player do
   end
 
   @spec interact(state) :: :ok
-  def interact({game, _tally = %{game_state: :won}}) do
-    IO.puts("You win! Congratulations! The word was '#{game.letters}'.")
+  def interact({_game, tally = %{game_state: :won}}) do
+    IO.puts("You win! Congratulations! The word was '#{tally.letters}'.")
   end
 
-  def interact({game, _tally = %{game_state: :lost}}) do
-    IO.puts("Sorry, you lost. The word was '#{game.letters}'.")
+  def interact({_game, tally = %{game_state: :lost}}) do
+    IO.puts("Sorry, you lost. The word was '#{tally.letters}'.")
   end
 
   def interact(_state = {game, tally}) do
+    IO.inspect(game)
     IO.puts(feedback_for(tally))
     IO.puts(current_word(tally))
 
-    Hangman.make_move(game, get_guess())
-    |> interact()
+    tally = Hangman.make_move(game, get_guess())
+
+    interact({game, tally})
   end
 
   defp current_word(tally) do
